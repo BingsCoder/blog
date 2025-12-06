@@ -1,6 +1,7 @@
 import { Post, Tweet } from './types';
 import fs from 'fs';
 import path from 'path';
+import crypto from 'crypto';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 const POSTS_FILE = path.join(DATA_DIR, 'posts.json');
@@ -31,7 +32,7 @@ export function getPost(id: string): Post | undefined {
 export function createPost(title: string, content: string): Post {
   const posts = getPosts();
   const newPost: Post = {
-    id: Date.now().toString(),
+    id: crypto.randomUUID(),
     title,
     content,
     createdAt: new Date().toISOString(),
@@ -88,7 +89,7 @@ export function getTweet(id: string): Tweet | undefined {
 export function createTweet(content: string): Tweet {
   const tweets = getTweets();
   const newTweet: Tweet = {
-    id: Date.now().toString(),
+    id: crypto.randomUUID(),
     content,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
